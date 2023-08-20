@@ -67,7 +67,7 @@ function App() {
             : secondaryCurrency === 'EUR'
             ? '€'
             : '$'}
-          {convertedValue}
+          {value > 0 ? convertedValue : 0}
         </p>
       </div>
     </>
