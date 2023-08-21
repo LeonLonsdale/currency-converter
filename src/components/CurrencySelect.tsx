@@ -1,7 +1,7 @@
-type CurrencySelectProps = {
+interface CurrencySelectProps {
   setCurrency: (e: React.ChangeEvent<HTMLSelectElement>) => void;
   currency: string;
-};
+}
 
 const CurrencySelect = ({ setCurrency, currency }: CurrencySelectProps) => {
   return (

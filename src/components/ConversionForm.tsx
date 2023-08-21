@@ -1,8 +1,8 @@
-type ConversionFormProps = {
+interface ConversionFormProps {
   value: number;
   onChangeValue: (e: React.ChangeEvent<HTMLInputElement>) => void;
   children: React.ReactNode;
-};
+}
 
 const ConversionForm = ({
   value,

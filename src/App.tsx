@@ -4,26 +4,31 @@ import ConversionForm from './components/ConversionForm';
 import CurrencySelect from './components/CurrencySelect';
 
 function App() {
-  const [value, setValue] = useState<number>(0);
-  const [primaryCurrency, setPrimaryCurrency] = useState<string>('GBP');
-  const [secondaryCurrency, setSecondaryCurrency] = useState<string>('USD');
-  const [convertedValue, setConvertedValue] = useState<number>(0);
+  const [value, setValue] = useState(0);
+  const [primaryCurrency, setPrimaryCurrency] = useState('GBP');
+  const [secondaryCurrency, setSecondaryCurrency] = useState('USD');
+  const [convertedValue, setConvertedValue] = useState(0);
 
-  const handleValue = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleValue = (e: React.ChangeEvent<HTMLInputElement>): void => {
     setValue(Number(e.target.value));
   };
 
-  const handlePrimaryCurrency = (e: React.ChangeEvent<HTMLSelectElement>) => {
+  const handlePrimaryCurrency = (
+    e: React.ChangeEvent<HTMLSelectElement>,
+  ): void => {
     setPrimaryCurrency(e.target.value);
   };
 
-  const handleSecondaryCurrency = (e: React.ChangeEvent<HTMLSelectElement>) => {
+  const handleSecondaryCurrency = (
+    e: React.ChangeEvent<HTMLSelectElement>,
+  ): void => {
     setSecondaryCurrency(e.target.value);
   };
 
   useEffect(() => {
     const controller = new AbortController();
     const { signal } = controller;
+
     const fetchConversion = async () => {
       try {
         if (value === 0 || secondaryCurrency === primaryCurrency) return;
