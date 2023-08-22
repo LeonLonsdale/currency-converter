@@ -1,15 +1,21 @@
 interface CurrencySelectProps {
   setCurrency: (e: React.ChangeEvent<HTMLSelectElement>) => void;
+  currencyList: string[];
   currency: string;
 }
 
-const CurrencySelect = ({ setCurrency, currency }: CurrencySelectProps) => {
+const CurrencySelect = ({
+  setCurrency,
+  currency,
+  currencyList,
+}: CurrencySelectProps) => {
   return (
     <select value={currency} onChange={setCurrency}>
-      <option value='USD'>USD</option>
-      <option value='CAD'>CAD</option>
-      <option value='GBP'>GBP</option>
-      <option value='EUR'>EUR</option>
+      {currencyList.map((cur) => (
+        <option value={cur} key={cur}>
+          {cur}
+        </option>
+      ))}
     </select>
   );
 };

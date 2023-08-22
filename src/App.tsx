@@ -8,6 +8,7 @@ function App() {
   const [primaryCurrency, setPrimaryCurrency] = useState('GBP');
   const [secondaryCurrency, setSecondaryCurrency] = useState('USD');
   const [convertedValue, setConvertedValue] = useState(0);
+  const [currencyList, setCurrencyList] = useState<string[]>([]);
 
   const handleValue = (e: React.ChangeEvent<HTMLInputElement>): void => {
     setValue(Number(e.target.value));
@@ -24,6 +25,16 @@ function App() {
   ): void => {
     setSecondaryCurrency(e.target.value);
   };
+
+  useEffect(() => {
+    const fetchCurrencies = async () => {
+      const res = await fetch(`https://api.frankfurter.app/currencies`);
+      const data = await res.json();
+      const curArray = Object.keys(data);
+      setCurrencyList(curArray);
+    };
+    fetchCurrencies();
+  }, []);
 
   useEffect(() => {
     const controller = new AbortController();
@@ -60,19 +71,16 @@ function App() {
           <CurrencySelect
             setCurrency={handlePrimaryCurrency}
             currency={primaryCurrency}
+            currencyList={currencyList}
           />
           <CurrencySelect
             setCurrency={handleSecondaryCurrency}
             currency={secondaryCurrency}
+            currencyList={currencyList}
           />
         </ConversionForm>
         <p>
-          {secondaryCurrency === 'GBP'
-            ? '£'
-            : secondaryCurrency === 'EUR'
-            ? '€'
-            : '$'}
-          {value > 0 ? convertedValue : 0}
+          {value > 0 ? convertedValue : 0} {secondaryCurrency}
         </p>
       </div>
     </>
